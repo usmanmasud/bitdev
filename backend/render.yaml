@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: bitoracle-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: MEMPOOL_API
+        value: https://mempool.space/api
+      - key: ORACLE_SECRET
+        generateValue: true

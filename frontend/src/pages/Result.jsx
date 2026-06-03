@@ -22,7 +22,7 @@ export default function Result() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/reputation/${address}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/reputation/${address}`)
       .then((r) => setData(r.data))
       .catch((e) => setError(e.response?.data?.error || "Failed to fetch score"))
       .finally(() => setLoading(false));
@@ -117,16 +117,14 @@ export default function Result() {
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 mt-4">
           <h2 className="text-sm font-semibold text-gray-300 mb-3">🔌 Oracle API</h2>
           <p className="text-xs text-gray-500 mb-2">Integrate this score into any lending app or marketplace:</p>
-          <pre className="bg-gray-800 text-orange-300 text-xs rounded-lg p-3 overflow-x-auto">
-{`GET /api/reputation/${address.slice(0, 12)}...
+          <pre className="bg-gray-800 text-orange-300 text-xs rounded-lg p-3 overflow-x-auto">{`GET /api/reputation/${address.slice(0, 12)}...
 
 {
   "score": ${data.score},
   "riskBand": "${data.riskBand}",
   "lendingRecommendation": "...",
   "commitment": { "hash": "..." }
-}`}
-          </pre>
+}`}</pre>
         </div>
 
         <p className="text-center text-xs text-gray-700 mt-6">

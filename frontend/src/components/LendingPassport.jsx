@@ -20,7 +20,7 @@ export default function LendingPassport({ data }) {
   const [generating, setGenerating] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState("");
 
-  const verifyUrl = `http://localhost:3001/api/reputation/${data.address}/verify?score=${data.score}&riskBand=${data.riskBand}&timestamp=${encodeURIComponent(data.commitment.timestamp)}&hash=${data.commitment.hash}`;
+  const verifyUrl = `${import.meta.env.VITE_API_URL}/api/reputation/${data.address}/verify?score=${data.score}&riskBand=${data.riskBand}&timestamp=${encodeURIComponent(data.commitment.timestamp)}&hash=${data.commitment.hash}`;
 
   useEffect(() => {
     QRCode.toDataURL(verifyUrl, { width: 120, margin: 1, color: { dark: "#f97316", light: "#111827" } })
