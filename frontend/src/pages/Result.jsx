@@ -24,7 +24,23 @@ export default function Result() {
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/reputation/${address}`)
       .then((r) => setData(r.data))
-      .catch((e) => setError(e.response?.data?.error || "Failed to fetch score"))
+      .catch((e) => {
+        const status = e.response?.status;
+        const msg = e.response?.data?.error;
+        if (!e.response) {
+          setError("Cannot connect to BitOracle backend. Make sure the server is running.");
+        } else if (status === 400 || msg?.toLowerCase().includes("invalid")) {
+          setError("Invalid Bitcoin address. Please check the address and try again.");
+        } else if (status === 404) {
+          setError("Address not found on the Bitcoin network.");
+        } else if (status === 429) {
+          setError("Too many requests. Please wait a moment and try again.");
+        } else if (status >= 500) {
+          setError("Failed to fetch on-chain data. mempool.space may be temporarily unavailable.");
+        } else {
+          setError(msg || "Something went wrong. Please try again.");
+        }
+      })
       .finally(() => setLoading(false));
   }, [address]);
 
@@ -37,11 +53,29 @@ export default function Result() {
 
   if (error)
     return (
-      <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center gap-4">
-        <p className="text-red-400">{error}</p>
-        <button onClick={() => navigate("/")} className="text-orange-400 underline text-sm">
-          ← Try another address
-        </button>
+      <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center px-4">
+        <div className="max-w-md w-full bg-gray-900 border border-red-900 rounded-2xl p-8 text-center shadow-xl">
+          <div className="text-4xl mb-4">⚠️</div>
+          <h2 className="text-white font-bold text-lg mb-2">Unable to Score Address</h2>
+          <p className="text-red-400 text-sm mb-2">{error}</p>
+          <p className="text-gray-600 text-xs mb-6 font-mono break-all">{address}</p>
+          <div className="space-y-2">
+            <button
+              onClick={() => navigate("/")}
+              className="w-full bg-orange-500 hover:bg-orange-400 text-black font-bold py-2.5 rounded-lg text-sm transition"
+            >
+              ← Try Another Address
+            </button>
+            <a
+              href="https://mempool.space"
+              target="_blank"
+              rel="noreferrer"
+              className="block w-full bg-gray-800 hover:bg-gray-700 text-gray-300 py-2.5 rounded-lg text-sm transition"
+            >
+              Find a valid address on mempool.space →
+            </a>
+          </div>
+        </div>
       </div>
     );
 

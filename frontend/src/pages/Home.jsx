@@ -9,8 +9,16 @@ export default function Home() {
   function handleSubmit(e) {
     e.preventDefault();
     const trimmed = address.trim();
-    if (trimmed.length < 26) {
-      setError("Enter a valid Bitcoin address");
+    if (!trimmed) {
+      setError("Please enter a Bitcoin address.");
+      return;
+    }
+    if (trimmed.length < 26 || trimmed.length > 62) {
+      setError("That doesn't look like a valid Bitcoin address.");
+      return;
+    }
+    if (!/^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,61}$/.test(trimmed)) {
+      setError("Invalid format. Bitcoin addresses start with bc1, 1, or 3.");
       return;
     }
     navigate(`/result/${trimmed}`);
