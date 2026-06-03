@@ -15,12 +15,13 @@ router.get("/:address", async (req, res) => {
   }
 
   try {
-    const { info, txs, utxos } = await getAddressData(address);
+    const { info, txs, utxos, mocked } = await getAddressData(address);
     const result = computeScore(address, info, txs, utxos);
     const commitment = createCommitment(address, result.score, result.riskBand);
 
     return res.json({
       ...result,
+      mocked: mocked || false,
       commitment: {
         hash: commitment.commitmentHash,
         opReturnHex: commitment.opReturnHex,

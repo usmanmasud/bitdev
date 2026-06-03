@@ -103,6 +103,11 @@ export default function Result() {
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-4 shadow-xl">
           <p className="text-xs text-gray-500 mb-1">Bitcoin Address</p>
           <p className="text-sm text-orange-300 font-mono break-all">{data.address}</p>
+          {data.mocked && (
+            <div className="mt-2 flex items-center gap-2 bg-yellow-950 border border-yellow-800 rounded-lg px-3 py-2">
+              <span className="text-yellow-400 text-xs">⚠️ Live blockchain data unavailable — score generated from address fingerprint (demo mode)</span>
+            </div>
+          )}
 
           <div className="flex items-center justify-between mt-6">
             <div>
