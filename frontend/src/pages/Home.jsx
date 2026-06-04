@@ -27,6 +27,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-orange-950 flex flex-col items-center justify-center px-4">
       <div className="w-full max-w-lg">
+        <Link to="/" className="text-xs text-gray-500 hover:text-orange-400 mb-6 block transition">← Home</Link>
         <div className="mb-8 text-center">
           <div className="text-5xl mb-3">⚡</div>
           <h1 className="text-3xl font-bold text-orange-400 tracking-tight">BitOracle</h1>
