@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Home() {
   const [address, setAddress] = useState("");
@@ -62,7 +62,15 @@ export default function Home() {
           </p>
         </div>
 
-        <p className="text-center text-xs text-gray-700 mt-8">
+        <div className="flex justify-center mt-8">
+          <Link
+            to="/docs"
+            className="text-xs text-gray-500 hover:text-orange-400 transition border border-gray-800 rounded-lg px-4 py-2"
+          >
+            📖 How it works & API docs
+          </Link>
+        </div>
+        <p className="text-center text-xs text-gray-700 mt-4">
           Powered by mempool.space · Non-custodial · No KYC
         </p>
       </div>
