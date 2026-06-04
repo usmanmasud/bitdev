@@ -13,12 +13,21 @@ const RISK_COLOR = {
   VERY_HIGH_RISK: "text-red-400",
 };
 
+const RISK_EXPLAIN = {
+  LOW_RISK: "This wallet has a strong on-chain history — consistent activity, healthy UTXOs, and good merchant diversity. Comparable to a prime credit rating.",
+  MEDIUM_RISK: "This wallet shows moderate activity with some gaps. Lending is possible with collateral or a co-signer.",
+  HIGH_RISK: "Limited or irregular on-chain history. Small collateralized loans may be possible at higher rates.",
+  VERY_HIGH_RISK: "Insufficient or very sparse on-chain history to establish trust. Not recommended for lending at this time.",
+};
+
 export default function Result() {
   const { address } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     axios
@@ -116,6 +125,17 @@ export default function Result() {
               <p className={`text-sm font-semibold mt-1 ${RISK_COLOR[data.riskBand]}`}>
                 {data.riskBand.replace(/_/g, " ")}
               </p>
+              <button
+                onClick={() => setShowTooltip((v) => !v)}
+                className="mt-1 text-xs text-gray-500 hover:text-orange-400 transition underline decoration-dotted"
+              >
+                {showTooltip ? "hide explanation" : "what does this mean?"}
+              </button>
+              {showTooltip && (
+                <div className="mt-2 bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 max-w-xs">
+                  <p className="text-xs text-gray-300 leading-relaxed">{RISK_EXPLAIN[data.riskBand]}</p>
+                </div>
+              )}
             </div>
             <ScoreGauge score={data.score} />
           </div>

@@ -74,7 +74,7 @@ export default function Landing() {
       {/* Hero */}
       <section className="text-center px-4 pt-20 pb-24 max-w-3xl mx-auto">
         <div className="inline-block bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold px-3 py-1 rounded-full mb-6">
-          Built for BitDevs BUK Hackathon 2026
+          Built for BitDevs BUK Hackathon 2026 · BOI-BUK Innovation Hub
         </div>
         <h1 className="text-5xl font-black tracking-tight leading-tight mb-4">
           Bitcoin Reputation.<br />
@@ -97,6 +97,49 @@ export default function Landing() {
           >
             Read the Docs
           </Link>
+        </div>
+      </section>
+
+      {/* The Problem */}
+      <section className="max-w-4xl mx-auto px-4 mb-20">
+        <p className="text-center text-xs text-gray-500 uppercase tracking-widest mb-8">The Problem</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          {[
+            { stat: "1.7B", label: "Adults globally without access to formal banking" },
+            { stat: "90%", label: "Of MSMEs in emerging markets lack a credit score" },
+            { stat: "$5.7T", label: "Annual MSME financing gap in developing economies" },
+          ].map((s) => (
+            <div key={s.stat} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+              <p className="text-4xl font-black text-orange-400 mb-2">{s.stat}</p>
+              <p className="text-xs text-gray-400 leading-relaxed">{s.label}</p>
+            </div>
+          ))}
+        </div>
+        <div className="bg-gray-900 border border-orange-900/40 rounded-2xl p-6">
+          <p className="text-sm text-gray-300 leading-relaxed text-center">
+            Millions of informal MSMEs in Nigeria and across the globe operate without access to credit —
+            not because they aren't creditworthy, but because <span className="text-orange-400 font-semibold">no one has looked at the right data</span>.
+            Bitcoin's public ledger contains everything needed to build a trust score — we just built the engine to read it.
+          </p>
+        </div>
+      </section>
+
+      {/* Hackathon theme alignment */}
+      <section className="max-w-3xl mx-auto px-4 mb-20">
+        <p className="text-center text-xs text-gray-500 uppercase tracking-widest mb-6">Directly addresses the hackathon brief</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { icon: "🔒", label: "UTXO Age", desc: "Analyzed per output" },
+            { icon: "🔁", label: "Tx Frequency", desc: "Consistency scored" },
+            { icon: "⚡", label: "Lightning Activity", desc: "Inferred from patterns" },
+            { icon: "📜", label: "Script Patterns", desc: "Payment type analyzed" },
+          ].map((t) => (
+            <div key={t.label} className="bg-gray-900 border border-orange-900/30 rounded-xl p-4 text-center">
+              <div className="text-xl mb-1">{t.icon}</div>
+              <p className="text-xs font-bold text-orange-400">{t.label}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{t.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 

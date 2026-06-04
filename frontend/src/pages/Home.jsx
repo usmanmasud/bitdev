@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+const DEMO_ADDRESSES = [
+  { label: "Active MSME wallet", address: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" },
+  { label: "High-frequency trader", address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7Divfna" },
+  { label: "Lightning-active node", address: "bc1q0sg9rdst255gtldsmcf8rk0764avqy2h2ksqs5" },
+];
+
 export default function Home() {
   const [address, setAddress] = useState("");
   const [error, setError] = useState("");
@@ -56,11 +62,24 @@ export default function Home() {
           </button>
         </form>
 
-        <div className="mt-4 bg-gray-900 border border-gray-800 rounded-xl px-4 py-3">
-          <p className="text-xs text-gray-500">
-            💡 Enter any real Bitcoin address with transaction history from
-            {" "}<a href="https://mempool.space" target="_blank" rel="noreferrer" className="text-orange-400 hover:underline">mempool.space</a>
-          </p>
+        {/* Demo addresses */}
+        <div className="mt-4 bg-gray-900 border border-gray-800 rounded-xl px-4 py-4">
+          <p className="text-xs text-gray-500 mb-3">⚡ Try a live demo address:</p>
+          <div className="space-y-2">
+            {DEMO_ADDRESSES.map((d) => (
+              <button
+                key={d.address}
+                onClick={() => { setAddress(d.address); setError(""); }}
+                className="w-full text-left flex items-center justify-between bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-orange-500 rounded-lg px-3 py-2 transition group"
+              >
+                <div>
+                  <p className="text-xs font-semibold text-white group-hover:text-orange-400 transition">{d.label}</p>
+                  <p className="text-xs text-gray-500 font-mono truncate max-w-xs">{d.address}</p>
+                </div>
+                <span className="text-xs text-gray-600 group-hover:text-orange-400 transition ml-2">→</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex justify-center mt-8">
